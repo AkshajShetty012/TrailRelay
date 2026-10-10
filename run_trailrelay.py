@@ -7,7 +7,7 @@ from temporalio.client import Client
 from temporalio.worker import Worker
 
 from trail_workflow import TrailReportWorkflow
-from activities import classify_report
+from activities import classify_report, create_github_issue
 
 
 TASK_QUEUE = "trailrelay-queue"
@@ -28,7 +28,7 @@ async def main():
             client,
             task_queue=TASK_QUEUE,
             workflows=[TrailReportWorkflow],
-            activities=[classify_report],
+            activities=[classify_report,create_github_issue],
         )
 
         print("TrailRelay worker started.")
