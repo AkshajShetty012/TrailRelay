@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#10251d">
+    <title>TrailRelay — Trail Hazard Reports</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="#">
+            <span class="brand-icon">T</span>
+            <span>TrailRelay</span>
+        </a>
+        <span id="connection-status" class="status">Checking connection…</span>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <p class="eyebrow">COMMUNITY TRAIL SAFETY</p>
+            <h1>Keep the trail<br>safe for everyone.</h1>
+            <p class="subtitle">
+                Report hazards on your trail. No internet? Your report
+                can be saved on this device and sent when you're back online.
+            </p>
+        </section>
+
+        <section class="report-card">
+            <div class="card-heading">
+                <div>
+                    <p class="eyebrow">NEW REPORT</p>
+                    <h2>What did you encounter?</h2>
+                </div>
+                <span class="hazard-icon" aria-hidden="true">↗</span>
+            </div>
+
+            <form id="report-form">
+                <label for="report-note">Describe the hazard</label>
+                <textarea
+                    id="report-note"
+                    name="report-note"
+                    rows="5"
+                    maxlength="1000"
+                    placeholder="e.g. A fallen tree is blocking the path near the wooden bridge."
+                    required
+                ></textarea>
+                <p class="hint">Include a nearby landmark if you can.</p>
+
+                <button id="submit-button" type="submit">
+                    Save hazard report
+                </button>
+            </form>
+        </section>
+
+        <section class="queue-card">
+            <div class="queue-heading">
+                <div>
+                    <p class="eyebrow">ON THIS DEVICE</p>
+                    <h2>Pending reports</h2>
+                </div>
+                <span id="queue-count" class="queue-count">0</span>
+            </div>
+            <p id="queue-message" class="queue-message">
+                Your saved reports will appear here.
+            </p>
+            <ul id="report-list" class="report-list"></ul>
+        </section>
+
+        <p id="app-message" class="app-message" role="status" aria-live="polite"></p>
+
+        <footer>
+            <span>TrailRelay</span>
+            <span>Built for safer trails.</span>
+        </footer>
+    </main>
+</body>
+</html>
