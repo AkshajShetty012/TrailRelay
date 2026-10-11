@@ -1,4 +1,3 @@
-
 import asyncio
 import sys
 import uuid
@@ -6,6 +5,7 @@ import uuid
 from temporalio.client import Client
 from temporalio.worker import Worker
 
+from recovery_test import RecoveryTestWorkflow
 from trail_workflow import TrailReportWorkflow
 from activities import classify_report, create_github_issue
 
@@ -27,13 +27,23 @@ async def main():
         worker = Worker(
             client,
             task_queue=TASK_QUEUE,
-            workflows=[TrailReportWorkflow],
+            workflows=[TrailReportWorkflow, RecoveryTestWorkflow],
             activities=[classify_report,create_github_issue],
         )
 
         print("TrailRelay worker started.")
         await worker.run()
-
+    elif command == "recovery":
+            workflow_id = f"recovery-test-{uuid.uuid4()}"
+        
+            result = await client.execute_workflow(
+                RecoveryTestWorkflow.run,
+                id=workflow_id,
+                task_queue=TASK_QUEUE,
+            )
+        
+            print(f"\nWorkflow ID: {workflow_id}")
+            print(result)
     elif command == "start":
         if len(sys.argv) < 3:
             print('Provide a report in quotes.')
